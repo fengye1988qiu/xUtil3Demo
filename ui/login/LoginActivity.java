@@ -3,17 +3,16 @@ package com.leo.xutil3demo.ui.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -21,11 +20,9 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +30,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leo.xutil3demo.BaseActivity;
+import com.leo.xutil3demo.ui.chat.ChatActivity;
 import com.leo.xutil3demo.R;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -43,7 +42,6 @@ import org.xutils.common.util.LogUtil;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -51,7 +49,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  * A login screen that offers login via email/password.
  */
 @ContentView(R.layout.activity_login)
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, RequestCallback<LoginInfo> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, RequestCallback<LoginInfo> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -85,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        x.view().inject(this);
+//        x.view().inject(this);
         populateAutoComplete();
 //        setContentView(R.layout.activity_login);//用@ContentView(R.layout.activity_login)替换
         // Set up the login form.
@@ -136,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Event(value = {R.id.email_sign_in_button, R.id.email_register_button})
     private void onclick(View view) {
+        startActivity(new Intent(this, ChatActivity.class));
         switch (view.getId()) {
             case R.id.email_sign_in_button:
                 attemptLogin();
@@ -336,7 +335,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     public void onSuccess(LoginInfo param) {
         LogUtil.d("onSuccess");
         Toast.makeText(this, "Login successfully!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, ChatActivity.class));
         showProgress(false);
+        finish();
 
     }
 
@@ -345,6 +346,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         LogUtil.d("onFailed");
         Toast.makeText(this, "Login fail!", Toast.LENGTH_SHORT).show();
         showProgress(false);
+
+
+
+        finish();
     }
 
     @Override
@@ -352,6 +357,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         LogUtil.d("onException");
         Toast.makeText(this, "Login onException!" + exception.toString(), Toast.LENGTH_SHORT).show();
         showProgress(false);
+
+
+
+        finish();
     }
 
 

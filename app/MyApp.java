@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
 
-import com.leo.xutil3demo.R;
 import com.leo.xutil3demo.ui.WelcomeActivity;
 import com.leo.xutil3demo.util.Screen;
+import com.leo.xutil3demo.R;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
@@ -15,7 +15,6 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 
-import org.xutils.common.util.LogUtil;
 import org.xutils.x;
 
 /**
